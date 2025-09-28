@@ -1,6 +1,7 @@
 package com.adam.jetpackcompose
 
 import android.content.Context
+import android.util.Log
 import com.google.gson.Gson
 import java.io.File
 
@@ -36,5 +37,8 @@ class GetUserData(private val context: Context) {
         userList.users.find { it.id == id }?.name = newName
         userList.users.find { it.id == id }?.phone = newPhone
         saveUsers(userList)
+        Log.d(
+            "JsonUpdate",
+            "updateUser: no.$id setName $newName setPhone $newPhone")
     }
 }
