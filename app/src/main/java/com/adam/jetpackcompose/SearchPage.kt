@@ -16,6 +16,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -27,6 +28,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -63,7 +65,7 @@ fun MainLayout( ){
         modifier = Modifier.fillMaxSize( )
     ) {
         val (searchBar, dataView) = createRefs()
-        SearchBar(
+        mySearchBar(
             modifier = Modifier.constrainAs(searchBar) {
                 top.linkTo(parent.top)
             }
@@ -79,8 +81,9 @@ fun MainLayout( ){
 }
 
 //searchBarUI
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchBar(modifier: Modifier = Modifier, viewModel: SearchViewModel = viewModel( )){
+fun mySearchBar(modifier: Modifier = Modifier, viewModel: SearchViewModel = viewModel( )){
     val searchText by viewModel.searchText.collectAsState( )
     Column(
         modifier = modifier
@@ -90,7 +93,7 @@ fun SearchBar(modifier: Modifier = Modifier, viewModel: SearchViewModel = viewMo
     ) {
         OutlinedTextField(
             modifier = Modifier
-                .fillMaxWidth( )
+                .fillMaxWidth()
                 .background(White)
                 .padding(8.dp),
             colors = OutlinedTextFieldDefaults.colors(
@@ -102,16 +105,16 @@ fun SearchBar(modifier: Modifier = Modifier, viewModel: SearchViewModel = viewMo
             singleLine = true,
             value = searchText,
             onValueChange = { viewModel.searchBarTextChange(it) },
-            label = {Text("Search")},
+            label = { Text("Search") },
             leadingIcon = { Icon(Icons.Default.Search, contentDescription = "Search") },
             trailingIcon = {
                 if (searchText.isNotEmpty())
                     IconButton(
-                        onClick = { viewModel.searchBarTextDelete( ) }
+                        onClick = { viewModel.searchBarTextDelete() }
                     ) {
                         Icon(Icons.Default.Clear, contentDescription = "Clear")
                     }
-                           },
+            },
         )
         Box(
             modifier = Modifier
@@ -124,14 +127,15 @@ fun SearchBar(modifier: Modifier = Modifier, viewModel: SearchViewModel = viewMo
 
 //userView
 @Composable
-fun UserView(modifier: Modifier = Modifier){
+fun UserView(
+    modifier: Modifier = Modifier, ){
     LazyColumn(
         modifier = modifier
             .fillMaxWidth( ),
         verticalArrangement = Arrangement.spacedBy(1.dp),
     ) {
         items(20){
-            horizontalLayout(name = "Admin")
+            horizontalLayout(name = "admin")
         }
     }
 }

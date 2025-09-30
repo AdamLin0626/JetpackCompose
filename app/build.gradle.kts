@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -40,6 +41,7 @@ android {
 }
 
 dependencies {
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
     implementation("com.google.code.gson:gson:2.11.0")
     implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.6")

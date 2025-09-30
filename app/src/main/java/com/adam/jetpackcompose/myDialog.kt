@@ -164,7 +164,7 @@ fun editDialog(
 @Composable
 fun inputBox(
     type: String,
-    viewModel: dialogViewModel = viewModel( )
+    viewModel: DialogViewModel = viewModel( )
 ){
     val newName = viewModel.newName.collectAsState( )
     val newPhone = viewModel.newPhone.collectAsState( )

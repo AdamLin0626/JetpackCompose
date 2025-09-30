@@ -79,7 +79,7 @@ fun iconFunction(
     description: String,
     color: Color,
     backgroundColor: Color,
-    viewModel: dialogViewModel = viewModel( )
+    viewModel: DialogViewModel = viewModel( )
 ){
 
     val showDialog = viewModel.showDialog.collectAsState()
