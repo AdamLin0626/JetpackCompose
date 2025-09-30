@@ -1,10 +1,9 @@
 package com.adam.jetpackcompose
 
+import android.util.Log
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -16,9 +15,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -32,6 +34,7 @@ import com.adam.jetpackcompose.ui.theme.LightBackgroundColor
 import com.adam.jetpackcompose.ui.theme.LightGray
 import com.adam.jetpackcompose.ui.theme.MainColor
 import com.adam.jetpackcompose.ui.theme.White
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun horizontalLayout(name: String){
@@ -75,9 +78,13 @@ fun iconFunction(
     icon: ImageVector,
     description: String,
     color: Color,
-    backgroundColor: Color
+    backgroundColor: Color,
+    viewModel: dialogViewModel = viewModel( )
 ){
-    Box (
+
+    val showDialog = viewModel.showDialog.collectAsState()
+
+    IconButton (
         modifier = Modifier
             .size(55.dp)
             .padding(2.dp)
@@ -85,10 +92,15 @@ fun iconFunction(
                 color = backgroundColor ,
                 shape = RoundedCornerShape(8.dp),
                 ),
-        contentAlignment = Alignment.Center
-
+        onClick = {
+            if (icon == Icons.Default.Edit) {
+                Log.i("onClick", "Edit")
+                viewModel.showDialog()
+            } else {
+                viewModel.showDialog()
+            }
+        },
         ){
-
         Icon(icon, modifier = Modifier.size(30.dp), contentDescription = description, tint = color)
     }
 }
