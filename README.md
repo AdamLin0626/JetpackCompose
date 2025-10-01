@@ -6,9 +6,9 @@
 ## 實際運行
 ### main
 <img width="657" height="624" alt="image" src="https://github.com/AdamLin0626/JetpackCompose/blob/main/Pic/Screenshot_20251001-152104_JetpackCompose.jpg" />  
-### 編輯
+### 編輯  
 <img width="657" height="624" alt="image" src="https://github.com/AdamLin0626/JetpackCompose/blob/main/Pic/Screenshot_20251001-152107_JetpackCompose.jpg" />  
-### 刪除確認
+### 刪除確認  
 <img width="657" height="624" alt="image" src="https://github.com/AdamLin0626/JetpackCompose/blob/main/Pic/Screenshot_20251001-152110_JetpackCompose.jpg" />  
 
 ## 邏輯
