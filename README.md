@@ -1,7 +1,15 @@
 # JetpackCompose 製作練習
 
 ## UI Setting
-<img width="657" height="624" alt="image" src="https://github.com/AdamLin0626/JetpackCompose/blob/main/PIC.png" />
+<img width="657" height="624" alt="image" src="https://github.com/AdamLin0626/JetpackCompose/blob/main/Pic/PIC.png" />  
+
+## 實際運行
+### main
+<img width="657" height="624" alt="image" src="https://github.com/AdamLin0626/JetpackCompose/blob/main/Pic/Screenshot_20251001-152104_JetpackCompose.jpg" />  
+### 編輯
+<img width="657" height="624" alt="image" src="https://github.com/AdamLin0626/JetpackCompose/blob/main/Pic/Screenshot_20251001-152107_JetpackCompose.jpg" />  
+### 刪除確認
+<img width="657" height="624" alt="image" src="https://github.com/AdamLin0626/JetpackCompose/blob/main/Pic/Screenshot_20251001-152110_JetpackCompose.jpg" />  
 
 ## 邏輯
 - View  
