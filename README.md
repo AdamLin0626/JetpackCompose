@@ -4,11 +4,11 @@
 <img width="657" height="624" alt="image" src="https://github.com/AdamLin0626/JetpackCompose/blob/main/Pic/PIC.png" />  
 
 ## 實際運行
-### main
+- main
 <img width="657" height="624" alt="image" src="https://github.com/AdamLin0626/JetpackCompose/blob/main/Pic/Screenshot_20251001-152104_JetpackCompose.jpg" />  
-### EditDialog
+- EditDialog
 <img width="657" height="624" alt="image" src="https://github.com/AdamLin0626/JetpackCompose/blob/main/Pic/Screenshot_20251001-152107_JetpackCompose.jpg" />  
-### ConfirmDialog
+- ConfirmDialog
 <img width="657" height="624" alt="image" src="https://github.com/AdamLin0626/JetpackCompose/blob/main/Pic/Screenshot_20251001-152110_JetpackCompose.jpg" />  
 
 ## 邏輯
