@@ -28,6 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import com.adam.jetpackcompose.ui.theme.ErrorRed
 import com.adam.jetpackcompose.ui.theme.Invisible
 import com.adam.jetpackcompose.ui.theme.LightBackgroundColor
@@ -82,8 +83,6 @@ fun iconFunction(
     viewModel: DialogViewModel = viewModel( )
 ){
 
-    val showDialog = viewModel.showDialog.collectAsState()
-
     IconButton (
         modifier = Modifier
             .size(55.dp)
@@ -93,16 +92,23 @@ fun iconFunction(
                 shape = RoundedCornerShape(8.dp),
                 ),
         onClick = {
-            if (icon == Icons.Default.Edit) {
-                Log.i("onClick", "Edit")
-                viewModel.showDialog()
-            } else {
-                viewModel.showDialog()
+            when (icon) {
+                Icons.Default.Edit -> {
+                    Log.i("onClick", "Edit")
+                    viewModel.toggleEditDialog(true)
+                }
+                Icons.Default.Delete -> {
+                    viewModel.toggleConfirmDialog(true)
+                }
+                else -> {
+                    Log.i("onClick", "Person")
+                }
             }
         },
         ){
         Icon(icon, modifier = Modifier.size(30.dp), contentDescription = description, tint = color)
     }
+
 }
 
 //測試區

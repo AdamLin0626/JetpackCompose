@@ -1,6 +1,7 @@
 package com.adam.jetpackcompose
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -28,9 +29,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -60,7 +61,14 @@ class SearchPage : ComponentActivity() {
 
 //主Layout UI
 @Composable
-fun MainLayout( ){
+fun MainLayout(
+    viewModel: SearchViewModel = viewModel( ),
+    dialogViewModel: DialogViewModel = viewModel( )
+){
+    val searchText by viewModel.searchText.collectAsState( )
+
+    val showConfirm = dialogViewModel.showDialog.collectAsState()
+    val showEdit = dialogViewModel.showEdit.collectAsState()
     ConstraintLayout(
         modifier = Modifier.fillMaxSize( )
     ) {
@@ -71,6 +79,7 @@ fun MainLayout( ){
             }
         )
         UserView(
+            searchText = searchText,
             modifier = Modifier.constrainAs(dataView) {
                 top.linkTo(searchBar.bottom)
                 bottom.linkTo(parent.bottom)
@@ -78,16 +87,45 @@ fun MainLayout( ){
             }
         )
     }
+    if (showEdit.value){
+        Dialog(
+            onDismissRequest = { dialogViewModel.toggleEditDialog(false) },
+        ) {
+            editDialog(
+                "更改資料",
+                { dialogViewModel.toggleEditDialog(false) },
+                onConfirm = { a, b ->
+                    Log.i("DialogInput",a)
+                    Log.i("DialogInput", b)
+                }
+            )
+        }
+    }
+    if (showConfirm.value){
+        Dialog(
+            onDismissRequest = { dialogViewModel.toggleConfirmDialog(false) },
+        ) {
+            confirmDialog(
+                "確定刪除嗎?",
+                { dialogViewModel.toggleConfirmDialog(false) },
+                { dialogViewModel.toggleConfirmDialog(false)}
+            )
+        }
+    }
 }
 
 //searchBarUI
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun mySearchBar(modifier: Modifier = Modifier, viewModel: SearchViewModel = viewModel( )){
+fun mySearchBar(
+    modifier: Modifier = Modifier,
+    viewModel: SearchViewModel = viewModel( )
+    ){
     val searchText by viewModel.searchText.collectAsState( )
+
     Column(
         modifier = modifier
-            .fillMaxWidth( )
+            .fillMaxWidth()
             .background(White),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
@@ -104,7 +142,10 @@ fun mySearchBar(modifier: Modifier = Modifier, viewModel: SearchViewModel = view
             shape = RoundedCornerShape(8.dp),
             singleLine = true,
             value = searchText,
-            onValueChange = { viewModel.searchBarTextChange(it) },
+            onValueChange = {
+                viewModel.searchBarTextChange(it)
+                viewModel.searchUser(it)
+                            },
             label = { Text("Search") },
             leadingIcon = { Icon(Icons.Default.Search, contentDescription = "Search") },
             trailingIcon = {
@@ -128,15 +169,29 @@ fun mySearchBar(modifier: Modifier = Modifier, viewModel: SearchViewModel = view
 //userView
 @Composable
 fun UserView(
-    modifier: Modifier = Modifier, ){
+    searchText: String,
+    modifier: Modifier = Modifier,
+    viewModel: SearchViewModel = viewModel( )
+){
+    val users by viewModel.userList.collectAsState(initial = emptyList())
     LazyColumn(
         modifier = modifier
             .fillMaxWidth( ),
         verticalArrangement = Arrangement.spacedBy(1.dp),
     ) {
-        items(20){
-            horizontalLayout(name = "admin")
+        items(users.size) { index ->
+            horizontalLayout(name = users[index].name)
         }
+//        if (searchText == "") {
+//            // Search Bar 為空
+//            items(users.size) { index ->
+//                horizontalLayout(name = users[index].name)
+//            }
+//        }else{
+//            items(1) {
+//                horizontalLayout(name = searchText)
+//            }
+//        }
     }
 }
 
