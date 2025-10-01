@@ -62,13 +62,12 @@ class SearchPage : ComponentActivity() {
 //主Layout UI
 @Composable
 fun MainLayout(
-    viewModel: SearchViewModel = viewModel( ),
-    dialogViewModel: DialogViewModel = viewModel( )
+    viewModel: SearchViewModel = viewModel( )
 ){
     val searchText by viewModel.searchText.collectAsState( )
 
-    val showConfirm = dialogViewModel.showDialog.collectAsState()
-    val showEdit = dialogViewModel.showEdit.collectAsState()
+    val showConfirm = viewModel.showDialog.collectAsState()
+    val showEdit = viewModel.showEdit.collectAsState()
     ConstraintLayout(
         modifier = Modifier.fillMaxSize( )
     ) {
@@ -89,11 +88,11 @@ fun MainLayout(
     }
     if (showEdit.value){
         Dialog(
-            onDismissRequest = { dialogViewModel.toggleEditDialog(false) },
+            onDismissRequest = { viewModel.toggleEditDialog(false) },
         ) {
             editDialog(
-                "更改資料",
-                { dialogViewModel.toggleEditDialog(false) },
+                title = "更改資料",
+                onCancel = { viewModel.toggleEditDialog(false) },
                 onConfirm = { a, b ->
                     Log.i("DialogInput",a)
                     Log.i("DialogInput", b)
@@ -103,12 +102,12 @@ fun MainLayout(
     }
     if (showConfirm.value){
         Dialog(
-            onDismissRequest = { dialogViewModel.toggleConfirmDialog(false) },
+            onDismissRequest = { viewModel.toggleConfirmDialog(false) },
         ) {
             confirmDialog(
                 "確定刪除嗎?",
-                { dialogViewModel.toggleConfirmDialog(false) },
-                { dialogViewModel.toggleConfirmDialog(false)}
+                { viewModel.toggleConfirmDialog(false) },
+                { viewModel.toggleConfirmDialog(false)}
             )
         }
     }

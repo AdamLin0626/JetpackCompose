@@ -93,6 +93,7 @@ fun confirmDialog(
  */
 @Composable
 fun editDialog(
+    viewModel: DialogViewModel = viewModel( ),
     title: String,
     onCancel: () -> Unit,
     onConfirm: (stringOne: String, stringTwo: String) -> Unit,
@@ -154,7 +155,11 @@ fun editDialog(
                 modifier = Modifier.weight(1f),
                 textColor = ErrorRed,
                 onClick = {
-                    onConfirm("123", "456")
+                    val newName = viewModel.newName.value
+                    val newPhone = viewModel.newPhone.value
+                    onConfirm(newName, newPhone)
+                    Log.i("DialogInput", "newName:$newName")
+                    Log.i("DialogInput", "newPhone:$newPhone")
                 }
             )
         }

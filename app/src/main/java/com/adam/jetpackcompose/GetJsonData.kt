@@ -2,6 +2,7 @@ package com.adam.jetpackcompose
 
 import android.content.Context
 import android.util.Log
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.io.File
 import java.io.FileOutputStream
@@ -104,6 +105,39 @@ class getJsonData(private val context: Context) {
         }
     }
 
+    fun deleteUserByName(name: String): Boolean {
+        val jsonFile = File(context.filesDir, JSON_NAME)
+
+        if (!jsonFile.exists()) {
+            Log.e("jsonProject", "File not found: ${jsonFile.absolutePath}")
+            return false
+        }
+
+        return try {
+            val jsonString = jsonFile.readText(Charsets.UTF_8)
+            val json = Json
+            val users: List<UserList> = json.decodeFromString(jsonString)
+
+            // 過濾掉要刪除的 name
+            val updatedUsers = users.filter { it.name != name }
+
+            // 如果長度一樣，代表沒有刪到任何東西
+            if (updatedUsers.size == users.size) {
+                Log.d("jsonProject", "No user found with name: $name")
+                return false
+            }
+
+            // 寫回檔案
+            val updatedJson = json.encodeToString(updatedUsers)
+            jsonFile.writeText(updatedJson)
+
+            Log.i("jsonProject", "Deleted user '$name' and updated JSON file.")
+            true
+        } catch (e: Exception) {
+            Log.e("jsonProject", "Delete error: ${e.message}")
+            false
+        }
+    }
 }
 
 //fun main() {
