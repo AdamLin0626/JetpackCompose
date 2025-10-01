@@ -5,10 +5,13 @@
 
 ## 實際運行
 - main
+
 <img width="657" height="624" alt="image" src="https://github.com/AdamLin0626/JetpackCompose/blob/main/Pic/Screenshot_20251001-152104_JetpackCompose.jpg" />  
 - EditDialog
+
 <img width="657" height="624" alt="image" src="https://github.com/AdamLin0626/JetpackCompose/blob/main/Pic/Screenshot_20251001-152107_JetpackCompose.jpg" />  
 - ConfirmDialog
+
 <img width="657" height="624" alt="image" src="https://github.com/AdamLin0626/JetpackCompose/blob/main/Pic/Screenshot_20251001-152110_JetpackCompose.jpg" />  
 
 ## 邏輯
